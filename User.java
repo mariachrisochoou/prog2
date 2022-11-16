@@ -47,6 +47,7 @@ public class User {
     	return true ;
     }
 
+    //This method checks if user is registered
     public static boolean isUserRegistered(User user){
         if(!users.contains(user.username)){
             return false;
@@ -54,6 +55,7 @@ public class User {
         return true;
     }
 
+    //This method is used to register users
     public static void userRegistration(User user){
         if(!isUserRegistered(user)){
             users.add(user.username);

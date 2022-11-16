@@ -26,7 +26,10 @@ public class User {
     	//If the above requirements are met, then we add the user to our list
     	
     }
-    
+
+    public String getUsername(){
+        return username;
+    }
     
     //method that checks whether a username is verified
     public boolean checkUsername (String name) {
@@ -43,6 +46,23 @@ public class User {
     public boolean findUser (String name) {
     	return true ;
     }
+
+    public static boolean isUserRegistered(User user){
+        if(!users.contains(user.username)){
+            return false;
+        }
+        return true;
+    }
+
+    public static void userRegistration(User user){
+        if(!isUserRegistered(user)){
+            users.add(user.username);
+        } else {
+            System.out.println ("User already exists");
+        }       
+    }
+
+
     
 }
 

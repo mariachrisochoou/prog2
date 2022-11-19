@@ -1,7 +1,7 @@
 import java.sql.Connection; //imports class Connection to establish the connection with mysql database 
 import java.sql.PreparedStatement; //imports interface PreparedStatement that helps execute an sql query with parameters
 import java.sql.ResultSet;  //imports interface ResultSet that allows to keep the results of sql queries 
-import java.util.Scanner; //imports class Scanner from java library  
+import java.util.Scanner; //imports class Scanner from java library for interaction with the user
 
 public class Message {
 	private String sender; //instance variable sender that stores the username of the user who sends a message
@@ -26,7 +26,7 @@ public class Message {
 		(url,username,password may be different depending if you use your own database in mysql) to successfully connect our program with db*/
 		Connection con = dbconnection.getConnection();
 		String sql = "INSERT INTO messages VALUES(?,?,?)";  /*we store the necessary sql statement in a variable sql of type String 
-        and with the ? are the parameters that will receive a value in lines 29,30,31 */ 
+        and with the ? are the parameters that will receive a value in lines 32,33,34 */ 
 		PreparedStatement stmt = con.prepareStatement(sql); /*we create an object stmt and as argument the sql statement 
 		which gives the ability to call the method setString in order to give to each parameter a value */
 		stmt.setString(1,sender); //by calling method setString on object stmt we give the 1st parameter the value of variable sender

@@ -2,6 +2,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;  
 
 public class Connection {
+  
+    public void executeMessage() {
+        Message mes = new Message();
+        mes.getMessageDetails();
+    
+      try {
+          mes.insertMessageDetails();
+      } catch (Exception e) {
+          System.out.println(e.getMessage());
+      }  
+    }
 		
 	    public void getUserDetails() {
 
@@ -36,4 +47,5 @@ public class Connection {
 			message = sc.nextLine();
 			sc.close(); 
 	}
+
 }

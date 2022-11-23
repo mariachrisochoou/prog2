@@ -13,6 +13,15 @@ public class Connection {
           System.out.println(e.getMessage());
       }  
     }
+	public void Execute() {
+		NewUser u = new NewUser();
+		u.getUserDetails();
+		try {
+			u.insertUserDetails();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	public void searchMessage(String userName) throws Exception {
 

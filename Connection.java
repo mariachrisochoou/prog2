@@ -23,28 +23,6 @@ public class Connection {
 		}
 	}
 
-	public void searchMessage(String userName) throws Exception {
-
-		DbConnection dbconnection = new DbConnection("jdbc:mysql://127.0.0.1:3306/db","test","testforjava"); 
-		Connection con = dbconnection.getConnection();
-
-		String sql = "SELECT sender,message FROM messages WHERE recipient =? "; 
-		PreparedStatement ps = con.prepareStatement(sql); 
-
-		ps.setString(1,userName); 
-		ResultSet rs = ps.executeQuery(); 
-
-		while (rs.next()) { 
-			String message = rs.getString("message"); 
-			String sentby = rs.getString("sender"); 
-			if (message != null) {
-				System.out.println(sentby + " sent you a new message: " + message); 
-			} else {
-				System.out.println("You don't have a message"); 
-			}
-		}
-
-	}
 		
 	    public void getUserDetails() {
 

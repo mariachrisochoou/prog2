@@ -16,12 +16,13 @@ public class AppIntro implements ActionListener {
 	private static JTextField username, email, dateOfBirth;
 	private static JPasswordField password;
 	private static JButton b1, b2, b3, b4;
+	private static User2 user = new User2(Connect.connect());
+	private static String n, p, m,d;
 	
 
 	public static void main(String[] args) {
 		createFrame();
 		intro();
-		//register();
 	}
 	
 	public static void intro() {
@@ -54,12 +55,12 @@ public class AppIntro implements ActionListener {
 		frame.setVisible(true);
 		
 		
-		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void register() {
 		
-		
+		AppIntro ai = new AppIntro();
 		p2 = new JPanel();
 		frame.add(p2);
 		p2.setLayout(null);
@@ -76,7 +77,7 @@ public class AppIntro implements ActionListener {
 		username = new JTextField(30);
 		username.setBounds(125, 60, 165, 25);
 		p2.add(username);
-		
+				
 		pw = new JLabel("Password: ");
 		pw.setBounds(10, 90, 200, 25);
 		p2.add(pw);
@@ -104,8 +105,10 @@ public class AppIntro implements ActionListener {
 		b3 = new JButton("REGISTER");
 		b3.setBounds(125, 200, 120, 25);
 		p2.add(b3);
+		b3.addActionListener(ai);
 		
 		frame.setVisible(true);
+		
 		
 		
 	}
@@ -153,15 +156,64 @@ public class AppIntro implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		boolean flag;
+		
 		if (e.getSource() == b1) {
 			p1.setVisible(false);
 			register();
 		} else if (e.getSource() == b2) {
 			p1.setVisible(false);
 			login();
+		} else if (e.getSource() == b3) {
+			n = username.getText();
+			p = password.getText();
+			m = email.getText();
+			d = dateOfBirth.getText();
+			
+			
+			flag = user.insertData(n, p, m,d);
+			p1.setVisible(false);
+			if (flag) {
+				accessAccepted();
+			} else {
+				accessDenied();
+			}
+			
 		}
 		
+		
+		
 	}
+	
+	public void accessAccepted() {
+		
+		p1 = new JPanel();
+		frame.add(p1);
+		p1.setLayout(null);
+		
+		welcome = new JLabel("HELLO NEW USER!");
+		welcome.setBounds(70, 20, 200, 25);
+		p1.add(welcome);
+		
+		frame.setVisible(true);
+		
+	}
+	
+	public void accessDenied() {
+		
+		p1 = new JPanel();
+		frame.add(p1);
+		p1.setLayout(null);
+		
+		welcome = new JLabel("This username is not available!");
+		welcome.setBounds(70, 20, 200, 25);
+		p1.add(welcome);
+		
+		frame.setVisible(true);
+		
+	}
+	
+
 	
 
 }

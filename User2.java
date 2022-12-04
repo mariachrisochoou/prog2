@@ -1,4 +1,6 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 
@@ -13,22 +15,28 @@ public class User2 {
 		this.conn = conn;
 	} 
 	
-	public void insertData(String username, String password, String email) {
+	public boolean insertData(String username, String password, String email, String dob) {
 		
-		String sql = "INSERT INTO User VALUES(?,?,?);";
+		String sql = "INSERT INTO User VALUES(?,?,?,?);";
+		boolean flag;
 		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			System.out.println("Entered");
+			
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ps.setString(3, email);
+			ps.setString(4, dob);
+
 			ps.executeUpdate();
+			flag = true;
 		} catch (SQLException e) {
-			System.out.println("SQL!");
+			flag = false;
 		} catch (Exception e) {
-			System.out.println("Exception!");
+			flag = false;
 		}
+		
+		return flag;
 	}
 
 
@@ -44,7 +52,7 @@ public class User2 {
 			System.out.println("Enter your email");
 			email = in.nextLine();
 
-			insertData(username, password, email);
+			//insertData(username, password, email,);
 
 	    }
 

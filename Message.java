@@ -1,63 +1,69 @@
-import java.sql.Connection; 
-import java.sql.PreparedStatement; 
-import java.sql.ResultSet;  
-import java.util.Scanner; 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
 
 public class Message {
-	private String sender; 
-	private String recipient; 
-	private String message; 
 	
-	public Message(String s, String r, String m) {
-		sender = s;
-		recipient = r;
-		message = m;
-	}	
+	private Connection conn;
+	private Scanner in = new Scanner(System.in);
 	
-
-	//Gets info from user to send a message
-
-	public void insertMessageDetails() throws Exception {
-
-		DbConnection dbconnection = new DbConnection("jdbc:mysql://127.0.0.1:3306/db","test","testforjava"); 
-		Connection con = dbconnection.getConnection();
-		String sql = "INSERT INTO messages VALUES(?,?,?)";  #
-
-		PreparedStatement stmt = con.prepareStatement(sql); 
-
-		stmt.setString(1,sender); 
-		stmt.setString(2,recipient); 
-		stmt.setString(3,message); 
-		stmt.executeUpdate(); 
-		System.out.println("Records inserted successfully");
-		DbConnection.closeConnection(con, stmt); 
+	public Message(Connection conn) {
+		this.conn = conn;
 	}
-
-
-    // Shows the user who sent them messages and what the message was
 	
-	public void searchMessage(String userName) throws Exception {
-
-		DbConnection dbconnection = new DbConnection("jdbc:mysql://127.0.0.1:3306/db","test","testforjava"); 
-		Connection con = dbconnection.getConnection();
-
-		String sql = "SELECT sender,message FROM messages WHERE recipient =? "; 
-		PreparedStatement ps = con.prepareStatement(sql); 
-
-		ps.setString(1,userName); 
-		ResultSet rs = ps.executeQuery(); 
-
-		while (rs.next()) { 
-			String message = rs.getString("message"); 
-			String sentby = rs.getString("sender"); 
-			if (message != null) {
-				System.out.println(sentby + " sent you a new message: " + message); 
-			} else {
-				System.out.println("You don't have a message"); 
-			}
+	public void insertMessageData(String sender, String recipient, String message) {
+		
+		String sql = "INSERT INTO Messages VALUES(?,?,?);";
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			System.out.println("Entered");
+			ps.setString(1, sender);
+			ps.setString(2, message);
+			ps.setString(3, recipient);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL!");
+		} catch (Exception e) {
+			System.out.println("Exception!");
 		}
-
 	}
 	
+	public void getMessageDetails() throws SQLException, Exception {
+
+		String s, r, m;
+		System.out.println("Enter your username");
+		s = in.nextLine();
+
+		System.out.println("Enter the username of the person you want to send the message:");
+		r = in.nextLine();
+
+		System.out.println("Enter the message");
+		m = in.nextLine();
+
+		insertMessageData(s, r, m);
+
+    }
+	
+	public void showMessages() throws SQLException, Exception {
+		
+		String sql = "SELECT sender, message FROM Messages";
+		
+		try {
+			Statement ps = conn.createStatement();
+			ResultSet rs = ps.executeQuery(sql);
+			
+			while (rs.next()) {
+				System.out.println("Sender:" + rs.getString("sender") + " Message:" + rs.getString("message") );
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL!");
+		} catch (Exception e) {
+			System.out.println("Exception!");
+		}
+	}
 	
 }

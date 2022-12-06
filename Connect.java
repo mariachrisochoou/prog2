@@ -5,7 +5,7 @@ import java.lang.Exception;
 
 public class Connect {
 
-	private static Connection connect() {
+	public static Connection connect() {
 
 		Connection conn = null;
 		try {
@@ -22,12 +22,22 @@ public class Connect {
 
 	public static void main(String[] args) {
 	
-		User u = new User(connect());
+		User2 u = new User2(connect());
 		try {
 			u.getUserDetails();
 			//Su.showUsers();
 		} catch( Exception e ) {
-		}
+		} 
+		
+		//Message m = new Message(connect());
+		
+		/*
+		try {
+			m.getMessageDetails();
+			//m.showMessages();
+		} catch (Exception e) {
+			
+		} */
 
 	}
 }

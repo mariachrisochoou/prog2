@@ -1,6 +1,7 @@
 public boolean logIn(String username,String password) {
-    DbConnection dbconnection = new DbConnection("jdbc:mysql://127.0.0.1:3306/db","test","testforjava");
-    			Connection con = dbconnection.getConnection();
+    DbConnection dbconnection = new DbConnection("jdbc:mysql://127.0.0.1:3306/db","test","testforjava"); 
+			Connection con = dbconnection.getConnection(); 
+
      String sql = "SELECT username , passw
                    FROM user,
                    WHERE USERNAME = uname";
@@ -9,8 +10,8 @@ public boolean logIn(String username,String password) {
 				   		try {
 				   			PreparedStatement ps = conn.prepareStatement(sql);
 
-				   			ps.getString(1, username);
-				   			ps.getString(2, password);
+				   			ps.setString(1, username);
+				   			ps.setString(2, password);
 				   			flag = true;
 				   		} catch (SQLException e) {
 				   			flag = false;

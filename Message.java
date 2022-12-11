@@ -3,6 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Message {
@@ -48,22 +49,40 @@ public class Message {
 
     }
 	
-	public void showMessages() throws SQLException, Exception {
-		
-		String sql = "SELECT sender, message FROM Messages";
+	public ArrayList<String> showMessages(String sendby) {
+		ArrayList<String> messages = new ArrayList<String>();
+		String sql = "SELECT message FROM Messages WHERE (recipient='eleni' AND sender=?) "; //recipient=user connected now
 		
 		try {
-			Statement ps = conn.createStatement();
-			ResultSet rs = ps.executeQuery(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, sendby);
+			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				System.out.println("Sender:" + rs.getString("sender") + " Message:" + rs.getString("message") );
+				messages.add(rs.getString("message"));
 			}
-		} catch (SQLException e) {
-			System.out.println("SQL!");
-		} catch (Exception e) {
-			System.out.println("Exception!");
+		} catch(Exception e) {
+			e.getMessage();
 		}
+		return messages;
+	}
+	
+	public ArrayList<String> searchSender(String rec) throws Exception  {
+		ArrayList<String> senders = new ArrayList<String>();
+		String sql = "SELECT DISTINCT sender FROM Messages WHERE recipient=?";
+        try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, rec);
+            ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				senders.add(rs.getString("sender"));
+				
+			}
+        } catch(Exception e) {
+        	e.printStackTrace();
+        }
+		return senders;
 	}
 	
 }

@@ -16,8 +16,6 @@ public class Menu implements ActionListener {
 	
 	public static void createMenu() {
 		
-		AppIntro ai = new AppIntro();
-		
 		frame = new JFrame(); // creates a frame
 		frame.setTitle("CatchApp"); //sets title of frame
 		frame.setSize(350,350); //sets frame size
@@ -53,7 +51,7 @@ public class Menu implements ActionListener {
 		b4 = new JButton("LOG OUT");
 		b4.setBounds(70, 180, 180, 25);
 		b4.setFocusable(false);
-		b4.addActionListener(ai);
+		b4.addActionListener(new Menu());
 		panel.add(b4);
 		
 		frame.setVisible(true);

@@ -1,13 +1,13 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Scanner;
+
 
 
 public class User2 {
 
 	private Connection conn;
-	private Scanner in = new Scanner(System.in);
+	
 	
 	
 
@@ -39,21 +39,5 @@ public class User2 {
 		return flag;
 	}
 
-
-	  public void getUserDetails() throws SQLException, Exception {
-
-			String username, password, email;
-			System.out.println("Enter your username");
-			username = in.nextLine();
-
-			System.out.println("Enter your password");
-			password = in.nextLine();
-
-			System.out.println("Enter your email");
-			email = in.nextLine();
-
-			//insertData(username, password, email,);
-
-	    }
 
 }

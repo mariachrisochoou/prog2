@@ -20,9 +20,14 @@ public class AppIntro implements ActionListener {
 	private static String n, p, m,d;
 	
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		createFrame();
 		intro();
+	}*/
+
+	public String getNam() { 
+		return n;
+
 	}
 	
 	public static void intro() {
@@ -106,6 +111,8 @@ public class AppIntro implements ActionListener {
 		b3.setBounds(125, 200, 120, 25);
 		p2.add(b3);
 		b3.addActionListener(ai);
+
+		
 		
 		frame.setVisible(true);
 		
@@ -115,7 +122,7 @@ public class AppIntro implements ActionListener {
 	
 	public static void createFrame() {
 		frame = new JFrame();
-		frame.setSize(350,350);
+		frame.setSize(450,350);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -149,6 +156,8 @@ public class AppIntro implements ActionListener {
 		b4 = new JButton("LOGIN");
 		b4.setBounds(150, 130, 120, 25);
 		p3.add(b4);
+
+	
 		
 		
 		frame.setVisible(true);
@@ -169,6 +178,10 @@ public class AppIntro implements ActionListener {
 			p = password.getText();
 			m = email.getText();
 			d = dateOfBirth.getText();
+		
+
+		
+		
 			
 			
 			flag = user.insertData(n, p, m,d);
@@ -179,11 +192,13 @@ public class AppIntro implements ActionListener {
 				accessDenied();
 			}
 			
-		}
-		
-		
+		 }
 		
 	}
+		
+		
+		
+	
 	
 	public void accessAccepted() {
 		

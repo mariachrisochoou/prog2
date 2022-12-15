@@ -72,7 +72,7 @@ public class Menu implements ActionListener {
 		} else if (e.getSource() == b2) {
 		} else if (e.getSource() == b3) {
 		} else*/ if (e.getSource() == b4) {
-			panel.setVisible(false);
+			frame.setVisible(false);
 			logoutPerformed();
 		}
 	}

@@ -15,7 +15,11 @@ public class Menu implements ActionListener {
 	private static JButton b1, b2, b3;
 
 	public static void createMenu() {
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 53e4d1ac89ad124aba6cff1cd848e1347be69304
 		frame = new JFrame(); // creates a frame
 		frame.setTitle("CatchApp"); //sets title of frame
 		frame.setSize(350,350); //sets frame size
@@ -48,7 +52,17 @@ public class Menu implements ActionListener {
 		b3.setFocusable(false);
 		b3.addActionListener(new Menu());
 		panel.add(b3);
+<<<<<<< HEAD
 
+=======
+		
+		b4 = new JButton("LOG OUT");
+		b4.setBounds(70, 180, 180, 25);
+		b4.setFocusable(false);
+		b4.addActionListener(new Menu());
+		panel.add(b4);
+		
+>>>>>>> 53e4d1ac89ad124aba6cff1cd848e1347be69304
 		frame.setVisible(true);
 
 	}
@@ -65,7 +79,12 @@ public class Menu implements ActionListener {
 		// TODO Auto-generated method stub
 		/*if (e.getSource() == b1) {
 		} else if (e.getSource() == b2) {
+<<<<<<< HEAD
 		} */ if (e.getSource() == b3) {
+=======
+		} else if (e.getSource() == b3) {
+		} else*/ if (e.getSource() == b4) {
+>>>>>>> 53e4d1ac89ad124aba6cff1cd848e1347be69304
 			frame.setVisible(false);
 			logoutPerformed();
 		}
@@ -76,4 +95,7 @@ public class Menu implements ActionListener {
 		AppIntro.createFrame();
 		AppIntro.intro();
 	}
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 53e4d1ac89ad124aba6cff1cd848e1347be69304

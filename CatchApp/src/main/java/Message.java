@@ -4,12 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class Message {
 	
 	private Connection conn;
-	private Scanner in = new Scanner(System.in);
+	
 	
 	public Message(Connection conn) {
 		this.conn = conn;
@@ -21,7 +21,6 @@ public class Message {
 		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			System.out.println("Entered");
 			ps.setString(1, sender);
 			ps.setString(2, message);
 			ps.setString(3, recipient);
@@ -33,26 +32,31 @@ public class Message {
 		}
 	}
 	
-	public void getMessageDetails() throws SQLException, Exception {
-
-		String s, r, m;
-		System.out.println("Enter your username");
-		s = in.nextLine();
-
-		System.out.println("Enter the username of the person you want to send the message:");
-		r = in.nextLine();
-
-		System.out.println("Enter the message");
-		m = in.nextLine();
-
-		insertMessageData(s, r, m);
-
-    }
+	public boolean checkExistence(String recipient ) throws SQLException, Exception {
+		String sql = "SELECT username FROM User ";
+	    boolean fl = false;
+		
+	    try {
+	    	Statement ps = conn.createStatement();
+	    	ResultSet rs = ps.executeQuery(sql);
+	    	while (rs.next() && fl== false) {
+	    		fl=rs.getString("username").equals(recipient); 	     
+	    	}
+	    } catch (SQLException e) {
+	    	System.out.println(e.getMessage());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return fl;	
+	}
+	
 	
 	public ArrayList<String> showMessages(String sendby) {
-		ArrayList<String> messages = new ArrayList<String>();
-		String sql = "SELECT message FROM Messages WHERE (recipient='mchri' AND sender=?) "; //recipient=user connected now
 		
+		ArrayList<String> messages = new ArrayList<String>();
+		String sql = "SELECT message FROM Messages WHERE (recipient='eleni' AND sender=?) "; 
+			
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, sendby);
@@ -64,25 +68,31 @@ public class Message {
 		} catch(Exception e) {
 			e.getMessage();
 		}
+		
 		return messages;
 	}
-	
+		
 	public ArrayList<String> searchSender(String rec) throws Exception  {
+		
 		ArrayList<String> senders = new ArrayList<String>();
 		String sql = "SELECT DISTINCT sender FROM Messages WHERE recipient=?";
-        try {
+	       
+		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, rec);
-            ResultSet rs = ps.executeQuery();
+	        ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				senders.add(rs.getString("sender"));
-				
+				senders.add(rs.getString("sender"));			
 			}
-        } catch(Exception e) {
-        	e.printStackTrace();
-        }
+			
+		} catch(Exception e) {
+	        	e.printStackTrace();
+	    }
+		
 		return senders;
 	}
-	
+		
 }
+	
+

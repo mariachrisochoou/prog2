@@ -1,7 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.lang.Exception;
+
 
 public class Connect {
 
@@ -20,20 +20,7 @@ public class Connect {
 		return conn;
 	}
 
-	public static void main(String[] args) {
 	
-		
-	Message m = new Message(connect());
-		
-		
-		try {
-			m.getMessageDetails();
-			//m.showMessages();
-		} catch (Exception e) {
-			
-		} 
-
-	}
 }
 
 

@@ -14,7 +14,7 @@ public class AppIntro implements ActionListener {
 	private static JLabel welcome, l2, register, name, pw, dof, mail, login;
 	private static JTextField username, email, dateOfBirth;
 	private static JPasswordField password;
-	private static JButton b1, b2, b3, b4,b5,b6,b7;
+	private static JButton b1, b2, b3, b4,b5,b6,b7,b8;
 	private static User2 user = new User2(Connect.connect());
 	private static String n, p, m,d;
 	private static AppIntro ai = new AppIntro();
@@ -51,12 +51,12 @@ public class AppIntro implements ActionListener {
 		p1.add(l2);
 		
 		b1 = new JButton("REGISTER");
-		b1.setBounds(40, 90, 180, 25);
+		b1.setBounds(70, 90, 180, 25);
 		b1.addActionListener(ai);
 		p1.add(b1);
 		
 		b2 = new JButton("LOGIN ");
-		b2.setBounds(40, 120, 180, 25);
+		b2.setBounds(70, 120, 180, 25);
 		b2.addActionListener(ai);
 		p1.add(b2);
 		
@@ -149,6 +149,7 @@ public class AppIntro implements ActionListener {
 		
 		b4 = new JButton("LOGIN");
 		b4.setBounds(150, 130, 120, 25);
+		b4.addActionListener(ai);
 		p3.add(b4);
 		
 		
@@ -166,7 +167,16 @@ public class AppIntro implements ActionListener {
 		} else if (e.getSource() == b2) {
 			p1.setVisible(false);
 			login();
+		} else if (e.getSource() == b4) {
+			p3.setVisible(false);
+			try {
+				checkLogIn( (user.logUser(username.getText(), password.getText())));
+			} catch (Exception w) {
+				w.getMessage();
+			}
+
 		} else if (e.getSource() == b3) {
+		
 			flag = insertDetails();
 			checkFlag(flag);
 			p2.setVisible(false);
@@ -180,7 +190,48 @@ public class AppIntro implements ActionListener {
 			p1.setVisible(false);
 			createFrame();
 			intro();
+		} 
+	}
+	
+	public void checkLogIn(boolean flag) {
+		if (flag) {
+			loginSuccess();
+		} else {
+			loginFail();
 		}
+	}
+	
+	public void loginSuccess() {
+		p1 = new JPanel();
+		frame.add(p1);
+		p1.setLayout(null);
+		
+		welcome = new JLabel("You have logged in successfully!");
+		welcome.setBounds(70, 20, 200, 25);
+		p1.add(welcome);
+		
+		b5= new JButton("NEXT");
+		b5.setBounds(40,120,180,25);
+		b5.addActionListener(new AppIntro());
+		p1.add(b5);
+		
+		frame.setVisible(true);
+	}
+	public void loginFail() {
+		p1 = new JPanel();
+		frame.add(p1);
+		p1.setLayout(null);
+		
+		welcome = new JLabel("Login failed!");
+		welcome.setBounds(100, 20, 185, 25);
+		p1.add(welcome);
+		
+		b7= new JButton("BACK");
+		b7.setBounds(70,90,185,25);
+		b7.addActionListener(new AppIntro());
+		p1.add(b7);
+		
+		frame.setVisible(true);
 	}
 		
 	public void checkFlag (boolean flag) {

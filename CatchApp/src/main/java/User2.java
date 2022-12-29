@@ -7,6 +7,7 @@ import java.sql.Statement;
 public class User2 {
 	
 	private Connection conn;
+	
 	private static Message m = new Message(Connect.connect());
 
 	

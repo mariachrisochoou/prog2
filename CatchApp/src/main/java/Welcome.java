@@ -15,27 +15,29 @@ public class Welcome implements ActionListener {
 	private static JLabel label;
 	private static JButton b;
 	private static JPanel panel;
+	
 		
 	public Welcome() {
 			
 			frame = new JFrame("Welcome to Catch App!");
-			frame.setSize(350,350);
+			frame.setBounds(400,100,700,700);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			b = new JButton("START");
 			b.addActionListener(this);
-			b.setBounds(80,250, 150, 25);
-			
+			b.setBounds(270,400, 120, 40);
+	
 				
 			panel = (JPanel)frame.getContentPane();  
 			panel.setLayout(null);
 			logo = new ImageIcon(getClass().getResource("photoCATCHAPP.png"));
 			Image image = logo.getImage(); // transform it 
-			Image newimg = image.getScaledInstance(500, 500,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+			Image newimg = image.getScaledInstance(600, 600,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 			logo = new ImageIcon(newimg);  // transform it back
 			
 			label = new JLabel(logo);
-			label.setBounds(0, 0, 330, 330);
+			label.setBounds(150, 50, 400, 400);
+			
 				  
 			frame.add(label);
 			panel.add(b);

@@ -1,6 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,24 +10,34 @@ import javax.swing.JTextField;
 public class AppIntro implements ActionListener {
 	
 	private static JFrame frame;
-	private static JPanel p1,p2,p3;
+	private static JPanel p1,p2,p3,p8;
 	private static JLabel welcome, l2, register, name, pw, dof, mail, login;
 	private static JTextField username, email, dateOfBirth;
 	private static JPasswordField password;
-	private static JButton b1, b2, b3, b4;
+	private static JButton b1, b2, b3, b4,b5,b6,b7,b8;
 	private static User2 user = new User2(Connect.connect());
 	private static String n, p, m,d;
+	private static AppIntro ai = new AppIntro();
 	
 
-	public static void main(String[] args) {
-		createFrame();
-		intro();
+	public static String getName() { 
+		return n;
+
+	}
+	
+	public static String getMail() { 
+		return m;
+
+	}
+	
+	public static String getBirthday() { 
+		return d;
+
 	}
 	
 	public static void intro() {
 		
-		AppIntro ai = new AppIntro();
-		
+		createFrame();
 		p1 = new JPanel();
 		frame.add(p1);
 		p1.setLayout(null);
@@ -42,25 +51,20 @@ public class AppIntro implements ActionListener {
 		p1.add(l2);
 		
 		b1 = new JButton("REGISTER");
-		b1.setBounds(40, 90, 180, 25);
+		b1.setBounds(70, 90, 180, 25);
 		b1.addActionListener(ai);
 		p1.add(b1);
 		
-		b2 = new JButton("LOGIN IN");
-		b2.setBounds(40, 120, 180, 25);
+		b2 = new JButton("LOGIN ");
+		b2.setBounds(70, 120, 180, 25);
 		b2.addActionListener(ai);
 		p1.add(b2);
 		
-		
-		frame.setVisible(true);
-		
-		
+		frame.setVisible(true);	
 	}
 	
-	@SuppressWarnings("deprecation")
+	
 	public static void register() {
-		
-		AppIntro ai = new AppIntro();
 		p2 = new JPanel();
 		frame.add(p2);
 		p2.setLayout(null);
@@ -95,7 +99,7 @@ public class AppIntro implements ActionListener {
 		p2.add(dateOfBirth);
 		
 		mail = new JLabel("Email: ");
-		mail.setBounds(10, 150, 200, 25);
+		mail.setBounds(10, 150, 165, 25);
 		p2.add(mail);
 		
 		email = new JTextField(50);
@@ -108,9 +112,6 @@ public class AppIntro implements ActionListener {
 		b3.addActionListener(ai);
 		
 		frame.setVisible(true);
-		
-		
-		
 	}
 	
 	public static void createFrame() {
@@ -148,12 +149,14 @@ public class AppIntro implements ActionListener {
 		
 		b4 = new JButton("LOGIN");
 		b4.setBounds(150, 130, 120, 25);
+		b4.addActionListener(ai);
 		p3.add(b4);
 		
 		
 		frame.setVisible(true);
 	}
-	@Override
+	
+	@SuppressWarnings("deprecation")
 	public void actionPerformed(ActionEvent e) {
 		
 		boolean flag;
@@ -164,36 +167,114 @@ public class AppIntro implements ActionListener {
 		} else if (e.getSource() == b2) {
 			p1.setVisible(false);
 			login();
-		} else if (e.getSource() == b3) {
-			n = username.getText();
-			p = password.getText();
-			m = email.getText();
-			d = dateOfBirth.getText();
-			
-			
-			flag = user.insertData(n, p, m,d);
-			p1.setVisible(false);
-			if (flag) {
-				accessAccepted();
-			} else {
-				accessDenied();
+		} else if (e.getSource() == b4) {
+			p3.setVisible(false);
+			try {
+				n = username.getText();
+				checkLogIn( (user.logUser(username.getText(), password.getText())));
+			} catch (Exception w) {
+				w.getMessage();
 			}
-			
-		}
+
+		} else if (e.getSource() == b3) {
 		
-		
-		
+			flag = insertDetails();
+			checkFlag(flag);
+			p2.setVisible(false);
+		} else if (e.getSource()== b6) {
+			p8.setVisible(false);
+			intro();
+		} else if(e.getSource()== b5) {
+			Menu.createMenu();
+			frame.setVisible(false);
+		} else if (e.getSource()==b7) {
+			p1.setVisible(false);
+			createFrame();
+			intro();
+		} 
 	}
 	
-	public void accessAccepted() {
-		
+	public void checkLogIn(boolean flag) {
+		if (flag) {
+			loginSuccess();
+		} else {
+			loginFail();
+		}
+	}
+	
+	public void loginSuccess() {
 		p1 = new JPanel();
 		frame.add(p1);
 		p1.setLayout(null);
 		
-		welcome = new JLabel("HELLO NEW USER!");
+		welcome = new JLabel("You have logged in successfully!");
 		welcome.setBounds(70, 20, 200, 25);
 		p1.add(welcome);
+		
+		b5= new JButton("NEXT");
+		b5.setBounds(40,120,180,25);
+		b5.addActionListener(new AppIntro());
+		p1.add(b5);
+		
+		frame.setVisible(true);
+	}
+	public void loginFail() {
+		p1 = new JPanel();
+		frame.add(p1);
+		p1.setLayout(null);
+		
+		welcome = new JLabel("Login failed!");
+		welcome.setBounds(100, 20, 185, 25);
+		p1.add(welcome);
+		
+		b7= new JButton("BACK");
+		b7.setBounds(70,90,185,25);
+		b7.addActionListener(new AppIntro());
+		p1.add(b7);
+		
+		frame.setVisible(true);
+	}
+		
+	public void checkFlag (boolean flag) {
+		
+		if (flag) {
+			accessAccepted();
+		} else {
+			accessDenied();
+		}
+		
+	}
+	
+	public boolean insertDetails() {
+		n = username.getText();
+		p = password.getText();
+		m = email.getText();
+		d = dateOfBirth.getText();
+		return user.insertData(n, p, m,d);
+	}
+		
+	
+	
+	public void accessAccepted() {
+		
+		p8 = new JPanel();
+		frame.add(p8);
+		p8.setLayout(null);
+		
+		welcome = new JLabel("HELLO NEW USER!");
+		welcome.setBounds(70, 20, 200, 25);
+		p8.add(welcome);
+		
+
+		b5= new JButton("LET'S GET STARTED");
+		b5.setBounds(40,90,180,25);
+		b5.addActionListener(new AppIntro());
+		p8.add(b5);
+		
+		b6= new JButton("BACK");
+		b6.setBounds(40,120,180,25);
+		b6.addActionListener(new AppIntro());
+		p8.add(b6);
 		
 		frame.setVisible(true);
 		
@@ -209,7 +290,13 @@ public class AppIntro implements ActionListener {
 		welcome.setBounds(70, 20, 200, 25);
 		p1.add(welcome);
 		
+		b7= new JButton("BACK");
+		b7.setBounds(40,120,180,25);
+		b7.addActionListener(new AppIntro());
+		p1.add(b7);
+		
 		frame.setVisible(true);
+		
 		
 	}
 	

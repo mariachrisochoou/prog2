@@ -3,6 +3,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -22,7 +25,8 @@ public class MessageSWING implements ActionListener {
 	
 	public static void createFrame() {
 		frame1 = new JFrame();
-		frame1.setSize(400,250);
+		frame1.setSize(500,500);
+		frame1.setBounds(400,100,700,700);
 		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -37,21 +41,24 @@ public class MessageSWING implements ActionListener {
 		createPanel();		
 
 		label1 = new JLabel(" How would you like to proceed? ");
-		label1.setBounds(60,20,250,25);
+		label1.setBounds(200,20,300,25);
+		label1.setFont(new Font("Arial", Font.PLAIN,20));
+		label1.setBackground(Color.blue);
+		label1.setForeground(Color.blue);
 		panel1.add(label1);
 		
 		button1 = new JButton("Text with a friend");
-		button1.setBounds(10,80,150,25);
+		button1.setBounds(100,100,150,40);
 		button1.addActionListener(new MessageSWING());
 		panel1.add(button1);
 
 		button2 = new JButton("Show new messages");
-		button2.setBounds(160,80,160,25);
+		button2.setBounds(380,100,160,40);
 		button2.addActionListener(new MessageSWING());
 		panel1.add(button2);
 			 
 		button3= new JButton("Back to menu");
-		button3.setBounds(60,140,150,25);
+		button3.setBounds(250,300,150,40);
 		button3.addActionListener(new MessageSWING());
 		panel1.add(button3);
 			
@@ -66,28 +73,28 @@ public class MessageSWING implements ActionListener {
 				
 
 		label2 = new JLabel("Send message to: ");
-		label2.setBounds(10,20,160,25);
+		label2.setBounds(50,100,200,25);
 		panel2.add(label2);
 
 		text = new JTextField(80);
-		text.setBounds(150, 20, 165, 25);
+		text.setBounds(200, 100, 200, 25);
 		panel2.add(text);
 
 		mes = new JLabel("Type your message!");
-		mes.setBounds(10,50,200,25);
+		mes.setBounds(50,150,200,25);
 		panel2.add(mes);
 
 		typing = new JTextField(100);
-		typing.setBounds(150,50,165,25);
+		typing.setBounds(200,150,200,25);
 		panel2.add(typing);
 
 		button = new JButton("Send");
-		button.setBounds(10,80,80,25);
+		button.setBounds(180,250,80,40);
 		button.addActionListener(new MessageSWING());
 		panel2.add(button);
 		
 		buttonb = new JButton("Back");
-		buttonb.setBounds(250,80,80,25);
+		buttonb.setBounds(380,250,80,40);
 		buttonb.addActionListener(new MessageSWING());
 		panel2.add(buttonb);
 
@@ -97,7 +104,7 @@ public class MessageSWING implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		
-		boolean fl=false;
+		boolean fl = false;
 				
 		if (e.getSource() == button1) {
 			
@@ -109,8 +116,17 @@ public class MessageSWING implements ActionListener {
 					
 			panel1.setVisible(false);
 			frame1.setVisible(false);
-			ShowMessagesSwing2.createFrame();
-			ShowMessagesSwing2.start();
+			try {
+				if (objMes.searchSender(AppIntro.getName()).size() == 0) {  //if there are no senders
+					ShowMessagesSwing2.createFrame();
+					ShowMessagesSwing2.noMessages();
+				} else {
+					ShowMessagesSwing2.createFrame();
+					ShowMessagesSwing2.start();
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 			
 		} else if (e.getSource() == button) {
 					
@@ -151,7 +167,7 @@ public class MessageSWING implements ActionListener {
 		   
 	public void ableToSend() {
 		able = new JLabel("");
-	    able.setBounds(10,130,200,25);
+	    able.setBounds(150,300,200,25); 
 	    panel2.add(able);
 	    able.setText("Message is successfully sent!");
 	    	
@@ -160,7 +176,7 @@ public class MessageSWING implements ActionListener {
 	    
 	public void notAbleToSend() {
 		notable = new JLabel("");
-	    notable.setBounds(10,130,200,25);
+	    notable.setBounds(150,300,200,25);
 	    panel2.add(notable);
 	    notable.setText("Can not find this user. Try again");
 	    	
@@ -169,7 +185,5 @@ public class MessageSWING implements ActionListener {
 	}
 			
 }
-
-
 
 

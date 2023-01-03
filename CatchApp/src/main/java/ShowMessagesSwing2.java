@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ public class ShowMessagesSwing2 implements ActionListener {
 	private static JPanel p1, p2, p3;
 	private static JFrame frame;
 	private static JLabel label, label2;
-	private static JButton[] b;
-	private static JButton back1,back2;
+	private static JButton[] b, like;
+	private static JButton back1, back2;
 	private static Message m = new Message(Connect.connect());
 	private static ArrayList<String> senders = new ArrayList<String>();
 	private static ShowMessagesSwing2 sms = new ShowMessagesSwing2(); 
@@ -37,23 +38,34 @@ public class ShowMessagesSwing2 implements ActionListener {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 			
 			ArrayList<String> messagess = new ArrayList<String>();
-	        messagess = m.showMessages(senderr);
+	        messagess = m.showMessages(senderr, AppIntro.getName());
 	        String[] data = new String[messagess.size()];
 	        for (int i = 0; i < data.length; i++) {
 	        	data[i] = messagess.get(i);
 	        }
 	        
 	        final DefaultListModel model = new DefaultListModel();
+	        int y = 5;
+	        like = new JButton[data.length];
 	        for (int i = 0, n = data.length; i < n; i++) {
-	          model.addElement(data[i]);
+	        	model.addElement(data[i]);
+	        	like[i] = new JButton("LIKE");
+	        	like[i].setBounds(500,y,100,25);
+	        	p3.add(like[i]);
+	        	frame.add(like[i]);
+	        	y+=30;
 	        }
+
 	        
 	        JList jlist = new JList(model);
+	        jlist.setFont(new Font("Arial", Font.PLAIN,20));
 	        JScrollPane scrollPane1 = new JScrollPane(jlist);
+	        scrollPane1.setBounds(10,50,300,25);
 	        frame.add(scrollPane1, BorderLayout.CENTER);
 	        
 	        back1 = new JButton("BACK");
 		    back1.addActionListener(sms);
+		    back1.setBounds(200,350,100,25);
 		    
 		    frame.add(back1, BorderLayout.SOUTH);
 			p3.setVisible(true); 
@@ -67,7 +79,7 @@ public class ShowMessagesSwing2 implements ActionListener {
 				e.printStackTrace();
 			}
 				
-			if (senders.size() == 0) { //if there are no senders
+			if (senders.size() == 0) { 
 				return false;
 			} else {
 				return true;
@@ -81,7 +93,8 @@ public class ShowMessagesSwing2 implements ActionListener {
 				frame.add(p1); 
 				
 				label = new JLabel("View messages from:");
-				label.setBounds(20, 25, 180, 25);
+				label.setFont(new Font("Arial", Font.PLAIN,20));
+				label.setBounds(200, 25, 400, 40);
 				p1.add(label);
 				
 				try {
@@ -91,13 +104,13 @@ public class ShowMessagesSwing2 implements ActionListener {
 				}
 				
 				b = new JButton[senders.size()];
-				int y = 50;
+				int y = 70;
 				for (int i = 0; i < b.length; i++) {
 					b[i] = new JButton(senders.get(i));
-					b[i].setBounds(20,y, 150, 25); 
+					b[i].setBounds(205,y, 150, 40); 
 					b[i].addActionListener(sms);
 					p1.add(b[i]);
-					y+=30;
+					y+=50;
 				}
 				
 				frame.setVisible(true);
@@ -136,13 +149,14 @@ public class ShowMessagesSwing2 implements ActionListener {
 			frame.add(p2);
 			p2.setLayout(null);
 			 
-			back2 = new JButton("Back");
-			back2.setBounds(150, 130, 120, 25);
+			back2 = new JButton("BACK");
+			back2.setBounds(202, 100, 250, 40);
 			back2.addActionListener(sms);
 			p2.add(back2);
 			
-			label2 = new JLabel("You have no messages");
-			label2.setBounds(60, 40, 180, 25);
+			label2 = new JLabel("You have no new messages!");
+			label2.setFont(new Font("Arial", Font.PLAIN,20));
+			label2.setBounds(200, 40, 400, 40);
 			p2.add(label2);
 			frame.setVisible(true);
 		}

@@ -52,14 +52,15 @@ public class Message {
 	}
 	
 	
-	public ArrayList<String> showMessages(String sendby) {
+	public ArrayList<String> showMessages(String sendby, String rp) {
 		
 		ArrayList<String> messages = new ArrayList<String>();
-		String sql = "SELECT message FROM Messages WHERE (recipient='eleni' AND sender=?) "; 
-			
+		String sql = "SELECT message FROM Messages WHERE (recipient=? AND sender=?) "; 
+		
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, sendby);
+			ps.setString(2, sendby);
+			ps.setString(1, AppIntro.getName());
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {

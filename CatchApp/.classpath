@@ -36,5 +36,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/checkstyle/checkstyle-10.5.0-all.jar"/>
+	<classpathentry kind="lib" path="C:/sqlite/sqlite-jdbc-3.40.0.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

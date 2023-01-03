@@ -123,7 +123,7 @@ public class AppIntro implements ActionListener {
 		p2.add(b3);
 		b3.addActionListener(ai);
 		
-		wr = new JButton("OOPS I WANT TO LOGIN");
+		wr = new JButton("OOPS, I WANT TO LOGIN");
 		wr.setBounds(50,340,200,40);
 		wr.setBackground(Color.red);
 		p2.add(wr);
@@ -172,7 +172,7 @@ public class AppIntro implements ActionListener {
 		b4.addActionListener(ai);
 		p3.add(b4);
 		
-		wr2= new JButton("OOPS,I WANT TO REGISTER");
+		wr2= new JButton("OOPS, I WANT TO REGISTER");
 		wr2.setBounds(50,250,200,40);
 		wr2.setBackground(Color.red);
 		wr2.addActionListener(ai);
@@ -243,14 +243,14 @@ public class AppIntro implements ActionListener {
 		p1.setLayout(null);
 		
 		welcome = new JLabel("You have logged in successfully!");
-		welcome.setBounds(200, 20, 300, 25);
+		welcome.setBounds(190, 50, 400, 40);
 		welcome.setBackground(Color.green);
 		welcome.setForeground(Color.green);
 		welcome.setFont(new Font("Arial",Font.PLAIN,20));
 		p1.add(welcome);
 		
 		b5= new JButton("NEXT");
-		b5.setBounds(240,400,180,40);
+		b5.setBounds(230,150,200,40);
 		b5.addActionListener(new AppIntro());
 		p1.add(b5);
 		
@@ -262,7 +262,7 @@ public class AppIntro implements ActionListener {
 		p1.setLayout(null);
 		
 		welcome = new JLabel("Login failed!");
-		welcome.setBounds(240, 20, 200, 25);
+		welcome.setBounds(270, 50, 400, 40);
 		welcome.setBackground(Color.red);
 		welcome.setForeground(Color.red);
 		welcome.setFont(new Font("Arial",Font.PLAIN,20));
@@ -271,7 +271,7 @@ public class AppIntro implements ActionListener {
 		frame.setVisible(false);
 		
 		b7= new JButton("BACK");
-		b7.setBounds(200,400,185,40);
+		b7.setBounds(230,150,200,40);
 		b7.addActionListener(new AppIntro());
 		p1.add(b7);
 		

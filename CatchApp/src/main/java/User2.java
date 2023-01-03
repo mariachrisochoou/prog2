@@ -47,7 +47,7 @@ public class User2 {
 		try {
 	    	Statement ps = conn.createStatement();
 	    	ResultSet rs = ps.executeQuery(sql);	    	
-	    	while (rs.next() && f1 == false && f2 == false) {	
+	    	while (rs.next() && f1 == false) {	
 	    		f1 = rs.getString("username").equals(u);
 	    		f2 = rs.getString("password").equals(p);
 	    	}

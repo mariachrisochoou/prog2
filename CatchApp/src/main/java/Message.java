@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public class Message {
 	
 	private Connection conn;
-	
-	
+
 	public Message(Connection conn) {
 		this.conn = conn;
 	}
@@ -26,13 +25,14 @@ public class Message {
 			ps.setString(3, recipient);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("SQL!");
+			System.out.println("SQL");
 		} catch (Exception e) {
 			System.out.println("Exception!");
 		}
 	}
 	
-	public boolean checkExistence(String recipient ) throws SQLException, Exception {
+	public boolean checkExistence(String recipient) {
+		
 		String sql = "SELECT username FROM User ";
 	    boolean fl = false;
 		
@@ -52,7 +52,7 @@ public class Message {
 	}
 	
 	
-	public ArrayList<String> showMessages(String sendby, String rp) {
+	public ArrayList<String> showMessages(String sendby, String recipient) {
 		
 		ArrayList<String> messages = new ArrayList<String>();
 		String sql = "SELECT message FROM Messages WHERE (recipient=? AND sender=?) "; 
@@ -60,7 +60,7 @@ public class Message {
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(2, sendby);
-			ps.setString(1, AppIntro.getName());
+			ps.setString(1, recipient);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -73,14 +73,14 @@ public class Message {
 		return messages;
 	}
 		
-	public ArrayList<String> searchSender(String rec) throws Exception  {
+	public ArrayList<String> searchSender(String recipient){
 		
 		ArrayList<String> senders = new ArrayList<String>();
 		String sql = "SELECT DISTINCT sender FROM Messages WHERE recipient=?";
 	       
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, rec);
+			ps.setString(1, recipient);
 	        ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {

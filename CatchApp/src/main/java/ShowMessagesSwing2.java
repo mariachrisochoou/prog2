@@ -18,7 +18,8 @@ public class ShowMessagesSwing2 implements ActionListener {
 	private static JLabel label, label2;
 	private static JButton[] b, like;
 	private static JButton back1, back2;
-	private static Message m = new Message(Connect.connect());
+	private DbConnection conn = new DbConnection();
+	private Message message = new Message(conn.connect());
 	private static ArrayList<String> senders = new ArrayList<String>();
 	private static ShowMessagesSwing2 sms = new ShowMessagesSwing2(); 
 		
@@ -31,23 +32,29 @@ public class ShowMessagesSwing2 implements ActionListener {
 	        
 		}
 		
-		public static void showMess2(String senderr) {
+		public void showMess2(String sender) {
 			p3 = new JPanel();
 			p3.setLayout(null);
 			frame.add(p3); 
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 			
-			ArrayList<String> messagess = new ArrayList<String>();
-	        messagess = m.showMessages(senderr, AppIntro.getName());
-	        String[] data = new String[messagess.size()];
+			String name = AppIntro.getName();
+			ArrayList<String> messages = new ArrayList<String>();
+	        messages = message.showMessages(sender, name);
+	        
+	        String[] data = new String[messages.size()];
+	   
 	        for (int i = 0; i < data.length; i++) {
-	        	data[i] = messagess.get(i);
+	        	data[i] = messages.get(i);
 	        }
 	        
 	        final DefaultListModel model = new DefaultListModel();
 	        int y = 5;
+	    
 	        like = new JButton[data.length];
 	        for (int i = 0, n = data.length; i < n; i++) {
+	   
+	        	
 	        	model.addElement(data[i]);
 	        	like[i] = new JButton("LIKE");
 	        	like[i].setBounds(500,y,100,25);
@@ -72,9 +79,9 @@ public class ShowMessagesSwing2 implements ActionListener {
 	        frame.setVisible(true);
 	    }
 		
-		public static boolean checkSenders() {
+		public boolean checkSenders() {
 			try {
-				senders = m.searchSender(AppIntro.getName());
+				senders = message.searchSender(AppIntro.getName());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -86,7 +93,8 @@ public class ShowMessagesSwing2 implements ActionListener {
 			}
 		}
 		
-		public static void start() {
+		public void start() {
+			
 			if (checkSenders() == true) {
 				p1 = new JPanel();
 				p1.setLayout(null);
@@ -98,7 +106,7 @@ public class ShowMessagesSwing2 implements ActionListener {
 				p1.add(label);
 				
 				try {
-					senders = m.searchSender(AppIntro.getName());  
+					senders = message.searchSender(AppIntro.getName());  
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -107,7 +115,7 @@ public class ShowMessagesSwing2 implements ActionListener {
 				int y = 70;
 				for (int i = 0; i < b.length; i++) {
 					b[i] = new JButton(senders.get(i));
-					b[i].setBounds(205,y, 150, 40); 
+					b[i].setBounds(230,y, 150, 40); 
 					b[i].addActionListener(sms);
 					p1.add(b[i]);
 					y+=50;

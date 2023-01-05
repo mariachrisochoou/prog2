@@ -22,12 +22,13 @@ public class Profile implements ActionListener {
 	private static JButton back;
 	private static ImageIcon image = new ImageIcon("logo.png"); 
 	private static Connection conn;
+	private DbConnection connection = new DbConnection();
 	private static String username, mail, birthday;
 	
 	public Profile(Connection conn) {
 		this.conn = conn;
 	}
-	public static void showProfile() {
+	public void showProfile() {
 			
 		fProf = new JFrame();
 		fProf.setTitle("CatchApp"); 
@@ -84,7 +85,7 @@ public class Profile implements ActionListener {
 			
 		back = new JButton("BACK");
 		back.setBounds(260,400,100,40);
-		back.addActionListener(new Profile(Connect.connect()));
+		back.addActionListener(new Profile(connection.connect()));
 		pProf.add(back);	
 			
 		fProf.setVisible(true);
@@ -92,7 +93,7 @@ public class Profile implements ActionListener {
 			
 	}
 	
-	public static void getUserData(String name) throws SQLException, Exception {
+	public static void getUserData(String name) {
 		
 		String sql = "SELECT username, email, date FROM User";
 		boolean f1 = false;

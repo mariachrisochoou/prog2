@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -16,7 +15,8 @@ public class Menu implements ActionListener {
 	private static JPanel panel;
 	private static JButton b1, b2, b3; 
 	private static ImageIcon image = new ImageIcon("logo.png");
-	private static Profile pr = new Profile(Connect.connect());
+	private DbConnection conn = new DbConnection();
+	private Profile profile = new Profile(conn.connect());
 	
 	public static void createFrame() {
 		frame = new JFrame(); 
@@ -75,22 +75,26 @@ public class Menu implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == b1) {
+
 			 MessageSWING.messageOptions();
 			 frame.setVisible(false);
+
 		} else if (e.getSource() == b3) {
-			
+
 			frame.setVisible(false);
 			logoutPerformed();
+
 		} else if (e.getSource() == b2) {
-			Profile.showProfile();
+	
+			profile.showProfile();
 			frame.setVisible(false);
+
 		}
 		
 	}
 
 	public static void logoutPerformed() {
 			AppIntro.intro();
-			
 	}
 
 }

@@ -7,8 +7,9 @@ import java.sql.Statement;
 public class User2 {
 	
 	private Connection conn;
+	private DbConnection connection = new DbConnection();
 	
-	private static Message m = new Message(Connect.connect());
+	private Message m = new Message(connection.connect());
 
 	
 	public User2(Connection conn) {
@@ -39,7 +40,7 @@ public class User2 {
 	}
 	
 	
-	public boolean checkPassword(String u, String p) throws SQLException, Exception{
+	public boolean checkPassword(String username, String password){
 		
 		String sql = "SELECT username, password FROM User";
 		boolean f1 = false, f2 = false;
@@ -48,8 +49,8 @@ public class User2 {
 	    	Statement ps = conn.createStatement();
 	    	ResultSet rs = ps.executeQuery(sql);	    	
 	    	while (rs.next() && f1 == false) {	
-	    		f1 = rs.getString("username").equals(u);
-	    		f2 = rs.getString("password").equals(p);
+	    		f1 = rs.getString("username").equals(username);
+	    		f2 = rs.getString("password").equals(password);
 	    	}
 	    	
 	    } catch (SQLException e) {
@@ -62,20 +63,22 @@ public class User2 {
 		
 	}
 	
-	public boolean logUser(String u, String pw) {
+	
+	public boolean logUser(String username, String password) {
 		
 	    boolean flag = false;
 	    
 	    try {
-	    	if (checkPassword(u,pw)) {
+	    	if (checkPassword(username, password)) {
 	    		flag = true;
 	    	}
-	  
 	    } catch (Exception e) {
-	    	e.getMessage();
+	    	System.out.println(e.getMessage());
 	    }
+	    
 	    return flag;
-	  }
+	    
+	}
 
 
 	 

@@ -18,7 +18,9 @@ public class MessageSWING implements ActionListener {
 	private static JLabel mes, label1, label2,able, notable;
 	private static JButton button, button1, button2, buttonb,button3;
 	private static JTextField typing, text;
-	private static Message objMes = new Message(Connect.connect());
+	private DbConnection conn = new DbConnection();
+	private Message objMes = new Message(conn.connect());
+	private ShowMessagesSwing2 objSMS = new ShowMessagesSwing2();
 	private static String tXt,receiver,sender;
 	private String nameOfSender = AppIntro.getName();
 
@@ -116,31 +118,23 @@ public class MessageSWING implements ActionListener {
 					
 			panel1.setVisible(false);
 			frame1.setVisible(false);
-			try {
-				if (objMes.searchSender(AppIntro.getName()).size() == 0) {  //if there are no senders
-					ShowMessagesSwing2.createFrame();
-					ShowMessagesSwing2.noMessages();
-				} else {
-					ShowMessagesSwing2.createFrame();
-					ShowMessagesSwing2.start();
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
 			
+			if (objMes.searchSender(AppIntro.getName()).size() == 0) {  //if there are no senders
+				ShowMessagesSwing2.createFrame();
+				ShowMessagesSwing2.noMessages();
+			} else {
+				ShowMessagesSwing2.createFrame();
+				objSMS.start();
+			}
+
 		} else if (e.getSource() == button) {
 					
 			tXt = typing.getText();
 			receiver = text.getText();
 			sender = nameOfSender;
-			try {
-				fl = objMes.checkExistence(receiver);
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-					
+		
+			fl = objMes.checkExistence(receiver);
+	
 			if (fl == true) {
 				objMes.insertMessageData(sender,receiver,tXt);
 				ableToSend();

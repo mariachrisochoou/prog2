@@ -12,12 +12,13 @@ import javax.swing.JTextField;
 public class AppIntro implements ActionListener {
 	
 	private static JFrame frame;
-	private static JPanel p1,p2,p3,p8;
+	private static JPanel p1,p2,p3,p4;
 	private static JLabel welcome, l2, register, name, pw, dof, mail, login;
 	private static JTextField username, email, dateOfBirth;
 	private static JPasswordField password;
 	private static JButton b1, b2, b3, b4,b5,b6,b7,wr,wr2;
-	private static User2 user = new User2(Connect.connect());
+	private DbConnection conn = new DbConnection();
+	private User2 user = new User2(conn.connect());
 	private static String n, p, m,d;
 	private static AppIntro ai = new AppIntro();
 	
@@ -187,42 +188,52 @@ public class AppIntro implements ActionListener {
 		boolean flag;
 		
 		if (e.getSource() == b1) {
+
 			p1.setVisible(false);
 			register();
+
 		} else if (e.getSource() == b2) {
+
 			p1.setVisible(false);
 			login();
+
 		} else if (e.getSource() == b4) {
+
 			p3.setVisible(false);
-			try {
-				n = username.getText();
-				checkLogIn( (user.logUser(username.getText(), password.getText())));
-			} catch (Exception w) {
-				w.getMessage();
-			}
+			n = username.getText();
+			checkLogIn( (user.logUser(username.getText(), password.getText())));
 
 		} else if (e.getSource() == b3) {
 		
 			flag = insertDetails();
 			checkFlag(flag);
 			p2.setVisible(false);
+	
 		} else if (e.getSource()== b6) {
-			p8.setVisible(false);
+	
+			p4.setVisible(false);
 			intro();
+
 		} else if(e.getSource()== b5) {
+
 			Menu.createMenu();
 			frame.setVisible(false);
+
 		} else if (e.getSource()==b7) {
+
 			p1.setVisible(false);
 			frame.setVisible(false);
 			createFrame();
 			intro();
+
 		} else if (e.getSource()==wr) {
+
 			frame.setVisible(false);
 			p2.setVisible(false);
 			intro();
 			
 		} else if (e.getSource()==wr2) {
+
 			frame.setVisible(false);
 			p3.setVisible(false);
 			intro();
@@ -262,7 +273,7 @@ public class AppIntro implements ActionListener {
 		p1.setLayout(null);
 		
 		welcome = new JLabel("Login failed!");
-		welcome.setBounds(270, 50, 400, 40);
+		welcome.setBounds(260, 50, 400, 40);
 		welcome.setBackground(Color.red);
 		welcome.setForeground(Color.red);
 		welcome.setFont(new Font("Arial",Font.PLAIN,20));
@@ -300,28 +311,28 @@ public class AppIntro implements ActionListener {
 	
 	public void accessAccepted() {
 		
-		p8 = new JPanel();
-		frame.add(p8);
-		p8.setLayout(null);
+		p4 = new JPanel();
+		frame.add(p4);
+		p4.setLayout(null);
 		
 		welcome = new JLabel("HELLO NEW USER!");
 		welcome.setFont(new Font("Arial", Font.BOLD,20));
 		welcome.setBackground(Color.blue);
 		welcome.setForeground(Color.blue);
 		welcome.setBounds(250, 50, 200, 25);
-		p8.add(welcome);
+		p4.add(welcome);
 		frame.setVisible(false);
 		
 
 		b5= new JButton("LET'S GET STARTED");
 		b5.setBounds(250,200,180,40);
 		b5.addActionListener(new AppIntro());
-		p8.add(b5);
+		p4.add(b5);
 		
 		b6= new JButton("BACK");
 		b6.setBounds(250,270,180,40);
 		b6.addActionListener(new AppIntro());
-		p8.add(b6);
+		p4.add(b6);
 		
 		frame.setVisible(true);
 		

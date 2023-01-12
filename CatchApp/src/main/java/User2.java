@@ -4,18 +4,26 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
+ /**
+ * This class connects with the Users table
+ * and completes users' requests.
+ * @author Maria Chrisochoou, Xristina Siakavara.
+ *
+ */
 public class User2 {
 	
+	/* Connection object*/
 	private Connection conn;
-	private DbConnection connection = new DbConnection();
 	
-	private Message m = new Message(connection.connect());
-
-	
+	/*Constructor of User2 class
+	 * Initiates conn object
+	 */
 	public User2(Connection conn) {
 		this.conn = conn;
 	} 
 	
+	/* Insert users' information into the user table of SQLITE Database*/
 	public boolean insertData(String username, String password, String email, String dob) {
 		
 		String sql = "INSERT INTO User VALUES(?,?,?,?);";
@@ -39,7 +47,9 @@ public class User2 {
 		return flag;
 	}
 	
-	
+	/* Check if users password is correct in order to connect
+	 * with profile
+	 */
 	public boolean checkPassword(String username, String password){
 		
 		String sql = "SELECT username, password FROM User";
@@ -63,7 +73,7 @@ public class User2 {
 		
 	}
 	
-	
+	/* Log in is successfully completed.*/
 	public boolean logUser(String username, String password) {
 		
 	    boolean flag = false;

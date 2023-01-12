@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Built-By: mchri
 Build-Jdk: 19
+Main-Class: com.CatchApp/src/main/java/Welcome
 Created-By: Maven Integration for Eclipse
 

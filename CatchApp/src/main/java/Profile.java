@@ -1,11 +1,9 @@
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.ImageIcon;
@@ -14,20 +12,48 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This class creates the Profile option of our application.
+ * Implements ActionListener interface to activate the buttons
+ * used.
+ * 	
+ * @author Ellie Papastergiou, Maria Chrisochoou
+ *
+ */
 public class Profile implements ActionListener {
 		
+	/* JFrame object */
 	private static JFrame fProf;
+	
+	/* JLabel objects */
 	private static JLabel profile, name, email, dof, n, e, b;
+	
+	/* JPanel object */
 	private static JPanel pProf;
+	
+	/* JButton object */
 	private static JButton back;
+	
+	/* Image Object */
 	private static ImageIcon image = new ImageIcon("logo.png"); 
+	
+	/* Connection object */
 	private static Connection conn;
+	
+	/* Db Connection object */
 	private DbConnection connection = new DbConnection();
+	
 	private static String username, mail, birthday;
 	
+	
+	/*Constructor of Profile class
+	 * initiates conn object
+	 */
 	public Profile(Connection conn) {
 		this.conn = conn;
 	}
+	
+	/* Show user's information */
 	public void showProfile() {
 			
 		fProf = new JFrame();
@@ -41,12 +67,13 @@ public class Profile implements ActionListener {
 		pProf = new JPanel(); 
 		fProf.add(pProf);
 		pProf.setLayout(null);
+		pProf.setBackground(Color.pink);
 			
 		profile = new JLabel("MY PROFILE");
-		profile.setBounds(240, 40, 200, 25);
-		profile.setFont(new Font("Arial", Font.PLAIN,20));
-		profile.setBackground(Color.blue);
-		profile.setForeground(Color.blue);
+		profile.setBounds(260, 40, 200, 25);
+		profile.setFont(new Font("Cambria", Font.PLAIN,20));
+		profile.setBackground(Color.red);
+		profile.setForeground(Color.red);
 		pProf.add(profile);
 	
 	
@@ -86,6 +113,7 @@ public class Profile implements ActionListener {
 		back = new JButton("BACK");
 		back.setBounds(260,400,100,40);
 		back.addActionListener(new Profile(connection.connect()));
+		back.setBackground(Color.red);
 		pProf.add(back);	
 			
 		fProf.setVisible(true);
@@ -93,6 +121,7 @@ public class Profile implements ActionListener {
 			
 	}
 	
+	/* Get user information form database */
 	public static void getUserData(String name) {
 		
 		String sql = "SELECT username, email, date FROM User";
@@ -114,7 +143,8 @@ public class Profile implements ActionListener {
 		
 		
 	}
-		
+	
+	/* Go back to the main menu */ 
 	public void actionPerformed(ActionEvent e) {
 			
 	   if (e.getSource()==back) {
@@ -128,3 +158,4 @@ public class Profile implements ActionListener {
 	}
 	
 }
+

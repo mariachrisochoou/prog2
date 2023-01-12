@@ -5,15 +5,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
+/**
+ * This class connects with the Messages table
+ * and completes users' requests.
+ * @author Dimitra Telatinidoy, Ornela Kalogeri.
+ *
+ */
 public class Message {
 	
+	/* Connection object*/
 	private Connection conn;
-
+    
+	/*Constructor of Message class
+	 * initiates conn object
+	 */
 	public Message(Connection conn) {
 		this.conn = conn;
 	}
 	
+	/* Insert users' information into the message table of SQLITE Database*/
 	public void insertMessageData(String sender, String recipient, String message) {
 		
 		String sql = "INSERT INTO Messages VALUES(?,?,?);";
@@ -31,6 +41,7 @@ public class Message {
 		}
 	}
 	
+	/*Check if user exists in order to send a message*/
 	public boolean checkExistence(String recipient) {
 		
 		String sql = "SELECT username FROM User ";
@@ -51,7 +62,9 @@ public class Message {
 		return fl;	
 	}
 	
-	
+	/* Take users' new messages from SQLITE Database in order
+	 * to show them to our application.
+	 */
 	public ArrayList<String> showMessages(String sendby, String recipient) {
 		
 		ArrayList<String> messages = new ArrayList<String>();
@@ -72,7 +85,10 @@ public class Message {
 		
 		return messages;
 	}
-		
+	
+	/* Take the names of the senders from SQLITE Database 
+	 * and show them to our application*
+	 */
 	public ArrayList<String> searchSender(String recipient){
 		
 		ArrayList<String> senders = new ArrayList<String>();

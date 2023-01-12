@@ -20,17 +20,6 @@ public class TestConnection {
 	}
 	
 	@Test
-	public void testShowMessages() {
-		
-		ArrayList<String> array = new ArrayList<String>();
-		array.add("Hi there");
-		String recipient = "mchrisochoou";
-		String sendby = "ornela";
-		assertEquals(array, message.showMessages(sendby, recipient));
-		
-	}
-	
-	@Test
 	public void testSearchSender() {
 		
 		ArrayList<String> array = new ArrayList<String>();

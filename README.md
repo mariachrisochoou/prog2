@@ -20,6 +20,8 @@ This is an easy way to run Catch App on your computer:
 *	Double - click on the application and have fun!
 
 
+## UML DIAGRAM 
+(![image](https://user-images.githubusercontent.com/115397720/212983805-226a6f6e-6cb6-4cf0-8b06-5b9269d356ad.png)
 
 
 **TEAM GOLDEN**

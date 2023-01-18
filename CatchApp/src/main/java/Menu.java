@@ -12,7 +12,7 @@ import javax.swing.JPanel;
  * the user has.
  * Implements ActionListener interface for the options
  * 
- * 	@author Ellie Papastergiou, Giorgos Giannis
+ * 	@author Ellie Papastergiou, Giorgos Giannis, Stella Mpiraki
  *
  */
 public class Menu implements ActionListener {
